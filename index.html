@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test if tou can drink some beers</title>
+  </head>
+  <body>
+    <img class="girl-img" src="./img/blondeGirl.png" alt="" />
+    <div class="container-all">
+      <div class="container-text">
+        <h1>Let's see if you can drink some beers</h1>
+      </div>
+      <div class="box-select">
+        <h1 class="h1-choices">Choose what you want</h1>
+        <h1 class="h1-choices">to write</h1>
+        <select name="types" id="types" class="select">
+          <option value="current">Your current age</option>
+          <option value="noCurrent">Your year of birth</option>
+        </select>
+        <input
+          id="input-age"
+          class="input-age"
+          type="number"
+          placeholder="Write here only numbers"
+        />
+      </div>
+      <div class="container-button">
+        <button id="button-action" class="button-action">Let's see</button>
+      </div>
+      <div class="container-response">
+        <img
+          id="loading-img"
+          class="loading-img-false"
+          src="https://i.gifer.com/XOsX.gif"
+          alt="laoding image"
+        />
+        <h1 id="result"></h1>
+
+        <h2 id="your-age"></h2>
+      </div>
+    </div>
+    <img class="girl-img" src="./img/girl1.png" alt="" />
+  </body>
+  <script>
+    ///select elements///
+    let button = document.getElementById('button-action');
+    let select = document.getElementById('types');
+    let input = document.getElementById('input-age');
+    let img = document.getElementById('loading-img');
+    let textResult = document.getElementById('result');
+    let yourage = document.getElementById('your-age');
+    ////////////////////
+
+    ///variables////
+    let minAge = 18;
+    let age = 0;
+    let choice = 'current';
+    let results = Boolean;
+    let currentAgeForShow = 0;
+    ////////////////
+
+    ///functions////
+    let selectChange = () => {
+      choice = select.value;
+    };
+
+    let setResult = () => {
+      setInterval(() => {
+        img.classList.remove('loading-img-true');
+        img.classList.add('loading-img-false');
+
+        if (results == true) {
+          textResult.innerHTML = ' ';
+          textResult.innerHTML = 'The result is YES you can ';
+          yourage.innerHTML = `you are ${currentAgeForShow} years old`;
+        }
+        if (results == false) {
+          textResult.innerHTML = '';
+          textResult.innerHTML = 'The result is No you can NOT ';
+          yourage.innerHTML = `you are ${currentAgeForShow} years old`;
+        }
+      }, 2000);
+    };
+
+    let buttonPressed = () => {
+      textResult.innerHTML = ' ';
+      yourage.innerHTML = ``;
+      img.classList.remove('loading-img-false');
+      img.classList.add('loading-img-true');
+      age = input.value;
+      if (choice == 'current') {
+        if (age >= minAge) {
+          results = true;
+          currentAgeForShow = age;
+        } else {
+          results = false;
+          currentAgeForShow = age;
+        }
+      }
+      if (choice == 'noCurrent') {
+        let today = new Date();
+        let year = today.getFullYear();
+        let test = year - age;
+        currentAgeForShow = test;
+        if (test >= minAge) {
+          results = true;
+        } else {
+          results = false;
+        }
+      }
+
+      setResult();
+    };
+    ///special events///
+    document.addEventListener('keydown', (event) => {
+      if (event.key == 'Enter') {
+        buttonPressed();
+      }
+    });
+    ////////////////////
+
+    ///events////
+    button.addEventListener('click', buttonPressed);
+    select.addEventListener('change', selectChange);
+    ////////////
+  </script>
+  <style>
+    * {
+      border: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: monospace;
+    }
+    body {
+      background-color: #212130;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container-text h1 {
+      color: #fff;
+      font-size: 19px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .h1-choices {
+      color: #fff;
+      font-size: 35px;
+      text-align: center;
+    }
+    .container-all {
+      height: 500px;
+      width: 450px;
+      background-color: #383849;
+      border-radius: 20px;
+      border: 2px solid #23ec69;
+    }
+    .container-text {
+      padding: 10px;
+      width: 100%;
+      height: 10%;
+      border-bottom: 2px solid #23ec69;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box-select {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 45%;
+      width: 100%;
+      background-color: #383849;
+      border-bottom: 2px solid #23ec69;
+    }
+    .select {
+      text-align: center;
+      font-family: monospace;
+      height: 40px;
+      width: 80%;
+      border: 0px;
+      margin: 0;
+      border-radius: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+    .select option {
+      border-radius: 50px;
+    }
+    .input-age {
+      text-align: center;
+      border: none;
+      width: 50%;
+      height: 30px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    .container-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 10%;
+      background-color: #383849;
+      border-bottom: 2px solid #23ec69;
+    }
+    .button-action {
+      height: 80%;
+      width: 40%;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+    .button-action:active {
+      transform: scale(0.99);
+    }
+    .button-action:hover {
+      background-color: #c3c3c3;
+      cursor: pointer;
+    }
+    .container-response {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 35%;
+      width: 100%;
+    }
+    .loading-img-true {
+      display: flex;
+      height: 100%;
+    }
+    .loading-img-false {
+      display: none;
+    }
+    #your-age {
+      color: #fff;
+    }
+    #result {
+      color: #ddd;
+      font-size: 25px;
+      margin-bottom: 30px;
+    }
+    .girl-img {
+      height: 500px;
+      margin-right: 100px;
+      margin-left: 100px;
+    }
+  </style>
+</html>

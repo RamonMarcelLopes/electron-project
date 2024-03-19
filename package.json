@@ -1,0 +1,23 @@
+{
+  "name": "electron",
+  "version": "1.0.0",
+  "description": "electron for test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-packager . --platform=win32 --arch=x64 --out=dist --overwrite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "electron-packager": "^17.1.2",
+    "electron": "^29.1.4"
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "productName": "Jacare's first app",
+    "icon": "./img/icon.ico"
+  }
+}
